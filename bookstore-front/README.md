@@ -16,51 +16,54 @@ This is the frontend portion of a full-stack monorepo located in [`/bookstore-re
 ---
 
 ## 🔧 Getting Started
+
 ### 1. Go to the frontend folder
 
-  cd bookstore-front
+cd bookstore-front
 
 ### 2. Install dependencies
 
-  npm install
+npm install
 
 ### 3. Start the dev server
 
-  npm run dev
+npm run dev
 
 ---
 
-## 🔍 Folder Structure (coming soon) 
+## 🔍 Folder Structure (coming soon)
 
 ---
 
 ## 🚧 Current Status
 
-  Phase 1 in progress: setup, layout, and Tailwind styling
+Phase 1 in progress: setup, layout, and Tailwind styling
 
-  Phase 2 upcoming: backend routes and MongoDB integration
-   (Full progress tracked in Checklist)
+Phase 2 upcoming: backend routes and MongoDB integration
+(Full progress tracked in Checklist)
 
 ---
 
 ## 📌 Frontend Goals
-  Convert old EJS views into modular React components
 
-  Use Tailwind for styling and responsive layout
+Convert old EJS views into modular React components
 
-  Consume backend API once built
+Use Tailwind for styling and responsive layout
 
-  Build a clean, accessible user interface
+Consume backend API once built
+
+Build a clean, accessible user interface
 
 ---
 
 ## 🧪 Notes
-  ESLint, Prettier, and EditorConfig are all set up
 
-  Default formatting rules included for consistency
+ESLint, Prettier, and EditorConfig are all set up
 
-  Future: auth forms, animations, search/pagination
----
+Default formatting rules included for consistency
+
+## Future: auth forms, animations, search/pagination
 
 ## 📄 License
-  MIT (See the main LICENSE file in the monorepo root.)
+
+MIT (See the main LICENSE file in the monorepo root.)

@@ -1,40 +1,53 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import BookListPage from './pages/BookListPage';
+import BookPage from './pages/BookPage';
+import NotFoundPage from './pages/NotFoundPage';
+import ContactPage from './pages/ContactPage';
+import Layout from './components/layout/Layout';
+import CartPage from './pages/CartPage';
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+//import MainNavbar from './components/layout/Navbar';
 import "./index.css";
 
 
-function App() {
-  const [count, setCount] = useState(0);
+const routes = [{
+  path: '/',
+  element: <Layout />,
+  errorElement: <NotFoundPage />,
+  children: [{
+    path: '/',
+    element: <HomePage />
+  }, {
+    path: '/about',
+    element: <AboutPage />
+  }, {
+    path: '/books',
+    element: <BookListPage />
+  }, {
+    path: '/books/:name',
+    element: <BookPage />
+  }, {
+    path: '/contact',
+    element: <ContactPage />
+  }, {
+    path: '/cart',
+    element: <CartPage />
+  }]
+}]
 
+const router = createBrowserRouter(routes);
+
+//Main application component intializing React Router with route definitions
+function App() {
   return (
     <>
-      <div className="bg-parchment text-wood font-serif p-6 rounded-lg transition-colors duration-300 ease-snappy">
-        <h1 className="text-ruby text-4xl mb-4">Welcome to the Bookstore</h1>
-        <p className="text-dust">Discover a world of literature.</p>
-      </div>
 
-      <div>
 
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <RouterProvider router={router} />
+
+
     </>
   );
 }

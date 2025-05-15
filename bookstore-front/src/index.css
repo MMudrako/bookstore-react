@@ -8,13 +8,18 @@
   /* Color Palette */
   --color-parchment: #f3efe2; /* soft warm beige */
   --color-wood: #2e1f13;       /* dark wood brown */
-  --color-ruby: #731f1f;       /* worn dark red */
+  --color-wornred: #731f1f;       /* worn dark red */
   --color-dust: #b8a77e;       /* dusty gold accent */
   --color-shadow: #1c1c1c;     /* deep black-shadow */
   --color-ivory: #fcf9f2;      /* near-white old paper */
+  --color-olive: #a6a634; 
+  --color-ruby: #57020a;
+  --color-dullgreen: #38513c; 
 
   /* Easing Functions */
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
   --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+
+ 
 }
 @tailwind utilities;

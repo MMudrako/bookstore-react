@@ -1,7 +1,9 @@
+import BookCarousel from "../components/books/BookCarousel"
 export default function HomePage() {
     return (
         <>
-            This is home page
+            <BookCarousel />
+
         </>
     )
 }

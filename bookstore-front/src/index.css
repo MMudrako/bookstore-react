@@ -20,6 +20,9 @@
   --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
   --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
 
+  /*Grid template for bookPage*/
+  --grid-rows-auto-1fr: auto auto 1fr;
+
  
 }
 @tailwind utilities;

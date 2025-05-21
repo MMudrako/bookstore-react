@@ -2,7 +2,7 @@
 import { StarIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import { Radio, RadioGroup } from '@headlessui/react'
-import books from '../data/books'
+import books from '../../../shared/books';
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
 const bookMedias = [

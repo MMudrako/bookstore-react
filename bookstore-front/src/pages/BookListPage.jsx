@@ -1,5 +1,5 @@
 import BookCard from "../components/books/BookCard";
-import books from '../data/books';
+import books from '../../../shared/books';
 
 export default function BookListPage() {
     return (

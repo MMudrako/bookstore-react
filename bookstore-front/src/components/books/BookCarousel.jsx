@@ -1,4 +1,4 @@
-import books from '../../data/books'
+import books from '../../../../shared/books'
 
 export default function BookCarousel() {
     return (

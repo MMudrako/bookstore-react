@@ -1,13 +1,14 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function BookCard({ book }) {
 
+    const navigate = useNavigate();
 
     return (
-        <div className="w-full  bg-dullgreen flex justify-center rounded-xl">
-            <Disclosure as="div" className="w-full max-w-4xl  shadow-lg bg-white/5 divide-y divide-white/10">
+        <div className=" custom-container w-full  bg-dullgreen flex justify-center rounded-xl">
+            <Disclosure as="div" className="w-full   shadow-lg bg-white/5 divide-y divide-white/10">
 
                 {/* Compact Line Header */}
                 <DisclosureButton className="w-full flex items-center justify-between p-4 text-left group">
@@ -17,7 +18,8 @@ export default function BookCard({ book }) {
                     </div>
 
                     <div className="flex gap-2">
-                        <button className="px-3 py-1 text-sm bg-dust text-white rounded hover:bg-olive transition">
+                        <button className="px-3 py-1 text-sm bg-dust text-white rounded hover:bg-olive transition"
+                            onClick={() => navigate(`/books/${book.id}`)}>
                             Book Details
                         </button>
                         <button className="px-3 py-1 text-sm bg-wornred text-white rounded hover:bg-ruby transition">

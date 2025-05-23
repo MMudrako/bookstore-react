@@ -1,5 +1,5 @@
 import { connectToDB } from '../bookstore-backend/db.js';
-import books from '../shared/books.js';
+import transformedBooks from './src/utils/transformedBooks.js';
 
 // Code Option to create first database: Auto-create database and collection if not present
 // This avoids relying on Atlas UI for manual setup
@@ -16,14 +16,22 @@ import books from '../shared/books.js';
 //   console.log("Seeding skipped: 'books' collection already has data.");
 // }
 async function seed() {
-    const db = await connectToDB();
-    const collection = db.collection('books');
 
-    await collection.deleteMany({});
-    await collection.insertMany(books);
+    try {
+        const db = await connectToDB("BookStoreApp");
+        const collection = db.collection('books');
 
-    console.log("database seeded!");
+        await collection.deleteMany({});
+        await collection.insertMany(transformedBooks);
 
-    process.exit(0);
+        console.log("database reseeded with normalized data and stars!");
+
+    } catch (err) {
+        console.error('Seeding failed:', err);
+    } finally {
+        await client.close();
+    }
+
+
 }
 seed();

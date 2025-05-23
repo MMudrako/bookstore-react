@@ -26,7 +26,7 @@ const routes = [{
     path: '/books',
     element: <BookListPage />
   }, {
-    path: '/books/:name',
+    path: '/books/:id',
     element: <BookPage />
   }, {
     path: '/contact',

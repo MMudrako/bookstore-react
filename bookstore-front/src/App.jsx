@@ -6,6 +6,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import ContactPage from './pages/ContactPage';
 import Layout from './components/layout/Layout';
 import CartPage from './pages/CartPage';
+import { bookLoader } from '../src/loaders/bookLoader.js'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 //import MainNavbar from './components/layout/Navbar';
@@ -27,7 +28,8 @@ const routes = [{
     element: <BookListPage />
   }, {
     path: '/books/:id',
-    element: <BookPage />
+    element: <BookPage />,
+    loader: bookLoader,
   }, {
     path: '/contact',
     element: <ContactPage />

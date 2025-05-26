@@ -62,7 +62,10 @@ app.post('/api/books/:id/reviews', async (req, res) => {
         { returnDocument: 'after' }
     )
     //if it comes in wrapping object  (including lastErrorObject, ok, etc.) just use .value
-    res.json(bookUpdatedStars);
+    res.json({
+        reviews: bookUpdatedStars.reviews,
+        stars: bookUpdatedStars.stars
+    });
 
 
 });

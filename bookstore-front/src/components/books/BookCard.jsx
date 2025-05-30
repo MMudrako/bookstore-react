@@ -16,18 +16,10 @@ export default function BookCard({ book }) {
                         <span className="text-base font-semibold text-white">{book.title}</span>
                         <span className="text-sm text-white/70">by {book.author}</span>
                     </div>
-
-                    <div className="flex gap-2">
-                        <button className="px-3 py-1 text-sm bg-dust text-white rounded hover:bg-olive transition"
-                            onClick={() => navigate(`/books/${book.id}`)}>
-                            Book Details
-                        </button>
-                        <button className="px-3 py-1 text-sm bg-wornred text-white rounded hover:bg-ruby transition">
-                            Add to Cart
-                        </button>
-                        <ChevronDownIcon className="size-5 ml-2 fill-white/60 group-data-open:rotate-180 transition-transform" />
-                    </div>
+                    <ChevronDownIcon className="size-5 ml-2 fill-white/60 group-data-open:rotate-180 transition-transform" />
                 </DisclosureButton>
+
+
 
                 {/* Expanded Content */}
                 <DisclosurePanel className="flex flex-col sm:flex-row gap-4 p-4 text-sm text-white/60">
@@ -43,6 +35,16 @@ export default function BookCard({ book }) {
                     </div>
                 </DisclosurePanel>
             </Disclosure>
+            <div className="flex gap-3">
+                <button className="px-3 py-1 m-2 max-h-12 text-sm bg-dust text-white rounded hover:bg-olive transition"
+                    onClick={() => navigate(`/books/${book.id}`)}>
+                    Book Details
+                </button>
+                <button className="px-2 py-1 m-2 max-h-12 text-sm bg-wornred text-white rounded hover:bg-ruby transition">
+                    Add to Cart
+                </button>
+
+            </div>
         </div>
     );
 }

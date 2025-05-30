@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-const db = await connectToDB();
+const { db } = await connectToDB();
 
 
 //first endpoints testing

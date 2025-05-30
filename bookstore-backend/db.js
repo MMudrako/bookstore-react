@@ -12,7 +12,7 @@ export async function connectToDB() {
         await client.connect();
         db = client.db("BookStoreApp");
         console.log("connected to MongoDB Atlass BookStore database");
-        return db;
+        return { client, db };
 
     } catch (err) {
         console.error('MongoDB error:', err);

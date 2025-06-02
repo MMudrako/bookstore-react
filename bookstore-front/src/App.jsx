@@ -11,7 +11,7 @@ import { bookLoader } from '../src/loaders/bookLoader.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 //import MainNavbar from './components/layout/Navbar';
 import "./index.css";
-
+import { CartProvider } from './hooks/cartContext.jsx'
 
 const routes = [{
   path: '/',
@@ -46,8 +46,11 @@ function App() {
   return (
     <>
 
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
 
-      <RouterProvider router={router} />
+
 
 
     </>

@@ -5,8 +5,8 @@ import { Radio, RadioGroup } from '@headlessui/react'
 //import books from '../../../shared/books';
 import { useLoaderData } from 'react-router-dom';
 import AddReviewForm from '../components/AddReviewForm.jsx';
-import { useState } from 'react'
-
+import { useState, useContext } from 'react'
+import CartContext from '../hooks/cartContext.jsx';
 
 
 
@@ -23,7 +23,7 @@ export default function BookPage() {
     const [reviews, setReviews] = useState(initialReviews);
     const [stars, setStars] = useState(loadedBook.stars)
     const [errorMessage, setErrorMessage] = useState([]);
-
+    const { addToCart } = useContext(CartContext);
 
     async function onAddReview({ nameText, commentText, selectedStar }) {
         try {
@@ -82,7 +82,7 @@ export default function BookPage() {
 
                     {/* Price */}
                     <p className="text-2xl text-gray-900 col-start-2 row-start-1 self-start">
-                        $29.99
+                        ${loadedBook.price}
                     </p>
 
                     {/* Reviews */}
@@ -105,7 +105,13 @@ export default function BookPage() {
                 </div>
 
                 {/* Add to Cart */}
-                <button className="w-30 bg-wornred hover:bg-ruby text-white py-3 rounded-md text-base font-medium">
+                <button className="w-30 bg-wornred hover:bg-ruby text-white py-3 rounded-md text-base font-medium"
+                    onClick={() => {
+                        console.log("Book being added to cart:", loadedBook);
+                        addToCart({ ...loadedBook, quantity: 1 })
+                    }
+                    }
+                >
                     Add to Cart
                 </button>
 

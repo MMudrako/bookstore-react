@@ -15,6 +15,18 @@ app.get('/hello', function (req, res) {
     res.send('Hello!')
 });
 
+app.get('/api/books', async (req, res) => {
+    try {
+        const books = await db.collection("books").find().toArray(); // ✅ Get all documents
+        res.json(books);
+    } catch (err) {
+        console.error('Failed to fetch books:', err);
+        res.status(500).send('Server error');
+    }
+
+});
+
+
 app.get('/api/books/:id', async (req, res) => {
     const book = await db.collection("books").findOne({ id: req.params.id });
     if (!book) {

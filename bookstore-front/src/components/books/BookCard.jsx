@@ -1,11 +1,13 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import CartContext from '../../hooks/cartContext';
 
 export default function BookCard({ book }) {
 
     const navigate = useNavigate();
-
+    const { addToCart } = useContext(CartContext);
     return (
         <div className=" custom-container w-full  bg-dullgreen flex justify-center rounded-xl">
             <Disclosure as="div" className="w-full   shadow-lg bg-white/5 divide-y divide-white/10">
@@ -40,7 +42,8 @@ export default function BookCard({ book }) {
                     onClick={() => navigate(`/books/${book.id}`)}>
                     Book Details
                 </button>
-                <button className="px-2 py-1 m-2 max-h-12 text-sm bg-wornred text-white rounded hover:bg-ruby transition">
+                <button className="px-2 py-1 m-2 max-h-12 text-sm bg-wornred text-white rounded hover:bg-ruby transition"
+                    onClick={() => addToCart({ ...book, quantity: 1 })}>
                     Add to Cart
                 </button>
 

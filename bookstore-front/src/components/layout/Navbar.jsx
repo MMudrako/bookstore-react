@@ -1,9 +1,12 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon, BookOpenIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, ShoppingCartIcon, XMarkIcon, BookOpenIcon } from '@heroicons/react/24/outline'
 import { Link, useLocation } from 'react-router-dom';
 import avatar from '../../assets/avatar.png';
-
-
+import { useContext } from 'react';
+import CartContext from '../../hooks/cartContext.jsx';
+import { getAuth, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import useUser from '../../hooks/useUser.js'
 const navigation = [
     { name: 'Home', url: "/" },
     { name: 'About', url: '/about' },
@@ -20,6 +23,12 @@ function classNames(...classes) {
 //Top navigation bar for main site pages
 export default function MainNavbar() {
     const location = useLocation();
+    const { cartItems } = useContext(CartContext);
+    const navigate = useNavigate();
+    let cartItemCount = cartItems.length;
+
+    const { isLoading, user } = useUser();
+
     return (
         <Disclosure as="nav" className="bg-wood">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -66,8 +75,15 @@ export default function MainNavbar() {
                             className="relative rounded-full bg-dullgreen p-1 text-parchment hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-dust focus:outline-hidden"
                         >
                             <span className="absolute -inset-1.5" />
-                            <span className="sr-only">View notifications</span>
-                            <BellIcon aria-hidden="true" className="size-6" />
+                            <span className="sr-only">View the cart</span>
+                            <Link to="/cart" className="relative">
+                                <ShoppingCartIcon className="size-6 text-parchment hover:text-white" />
+                                {cartItemCount > 0 && (
+                                    <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-ruby rounded-full">
+                                        {cartItemCount}
+                                    </span>
+                                )}
+                            </Link>
                         </button>
 
                         {/* Profile dropdown */}
@@ -87,6 +103,17 @@ export default function MainNavbar() {
                                 transition
                                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
                             >
+                                <MenuItem as='div'>
+
+                                    {isLoading ? <p>loading...</p> : (
+                                        <>
+                                            {user && (
+                                                <p>Logged in as {user.email} </p>
+                                            )}
+                                        </>
+                                    )}
+
+                                </MenuItem>
                                 <MenuItem>
                                     <button
                                         className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
@@ -101,12 +128,21 @@ export default function MainNavbar() {
                                         Settings
                                     </button>
                                 </MenuItem>
-                                <MenuItem>
-                                    <button
-                                        className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                    >
-                                        Sign out
-                                    </button>
+                                <MenuItem >
+                                    {user
+                                        ? <button
+                                            className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                            onClick={() => signOut(getAuth())}
+                                        >
+                                            Sign out
+                                        </button>
+                                        : <button
+                                            className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                                            onClick={() => navigate('/login')}
+                                        >
+                                            Sign in
+                                        </button>}
+
                                 </MenuItem>
                             </MenuItems>
                         </Menu>

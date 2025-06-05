@@ -26,7 +26,7 @@ export default function ContactForm() {
     return (
         <>
             <div className="custom-container mx-auto px-4 grid grid-cols-1 sm:grid-cols-[1fr_1fr] sm:gap-6 gap-y-8 py-6 bg-parchment">
-                <div className="col-start-1 row-start-2 w-full max-w-[450px] border border-gray-300 shadow-md rounded-lg overflow-hidden">
+                <div className="col-start-1 row-start-1 w-full max-w-[450px] border border-gray-300 shadow-md rounded-lg overflow-hidden">
                     <img
                         src={bookShelf}
                         alt="floating book"
@@ -43,7 +43,7 @@ export default function ContactForm() {
 
 
 
-                <div className="col-start-1 row-start-3 sm:col-start-2 sm:row-start-2 flex flex-col px-2 justify-center">
+                <div className="col-start-1 row-start-2 sm:col-start-2 sm:row-start-1 flex flex-col px-2 justify-center">
                     <h1 className="text-4xl font-semibold text-olive m-10">Leave me a message</h1>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-md">
                         {/* Name Field */}

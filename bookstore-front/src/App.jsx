@@ -12,6 +12,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 //import MainNavbar from './components/layout/Navbar';
 import "./index.css";
 import { CartProvider } from './hooks/cartContext.jsx'
+import LoginPage from './pages/LoginPage.jsx';
+import CreateAccountPage from './pages/CreateAccountPage.jsx';
 
 const routes = [{
   path: '/',
@@ -36,6 +38,12 @@ const routes = [{
   }, {
     path: '/cart',
     element: <CartPage />
+  }, {
+    path: '/login',
+    element: <LoginPage />
+  }, {
+    path: '/create-account',
+    element: <CreateAccountPage />
   }]
 }]
 

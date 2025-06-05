@@ -7,7 +7,7 @@ import { useLoaderData } from 'react-router-dom';
 import AddReviewForm from '../components/AddReviewForm.jsx';
 import { useState, useContext } from 'react'
 import CartContext from '../hooks/cartContext.jsx';
-
+import useUser from '../hooks/useUser.js'
 
 
 function classNames(...classes) {
@@ -24,23 +24,32 @@ export default function BookPage() {
     const [stars, setStars] = useState(loadedBook.stars)
     const [errorMessage, setErrorMessage] = useState([]);
     const { addToCart } = useContext(CartContext);
+    const { isLoading, user: authUser } = useUser();
 
-    async function onAddReview({ nameText, commentText, selectedStar }) {
+
+    async function onAddReview({ commentText, selectedStar }) {
         try {
+            const token = authUser && await authUser.getIdToken();
+            if (!authUser) {
+                setErrorMessage(['User not authenticated. Please log in.']);
+                return;
+            } else { console.log("user", authUser) }
+            const headers = token ? { authtoken: token } : {};
+            console.log("headers:", headers);
+
             //this part is sent to the server where it is connected to MongodDB
             const response = await axios.post(`/api/books/${loadedBook.id}/reviews`, {
-                user: nameText,
+
                 comment: commentText,
                 rating: selectedStar
-            });
-            //these two lines suppose to update the front-end review section with new review?,
-            //  but I  still render the same data and page gets refreshed
-            //it doesn't get to DB either 
+            }, { headers });
+
             const { reviews: updatedReviews, stars: updatedStars } = response.data;
             setReviews(updatedReviews);
             setStars(updatedStars);
             setErrorMessage([]);
         } catch (err) {
+            console.error("Error caught in onAddReview:", err); // 👈 Add this
             if (err.response && err.response.status === 400 && err.response.data.errors) {
                 setErrorMessage(err.response.data.errors.map(e => e.msg));
             } else {
@@ -124,8 +133,16 @@ export default function BookPage() {
                 {/*Reviews */}
 
                 <div className='pt-6 border-t border-gray-200'>
-                    <h3 className='text-wood bg-parchment px-8 py-4 '>Add a Reviews: </h3>
-                    <AddReviewForm onAddReview={onAddReview} />
+                    {authUser
+                        ? <div>
+                            <h3 className='text-wood bg-parchment px-8 py-4 '>Add a Reviews: </h3>
+                            <AddReviewForm onAddReview={onAddReview} />
+                        </div>
+                        :
+                        <h3 className='text-wood bg-parchment px-8 py-4 '>Log in to add a Reviews: </h3>
+
+                    }
+
                 </div>
                 {errorMessage.length > 0 && (
                     <div className="error-messages">
@@ -144,7 +161,7 @@ export default function BookPage() {
                                 <div key={r.user} className='flex w-full flex-col rounded-md shadow-md'>
                                     <div className='flex items-center gap-2 mb-2'>
                                         <UserIcon className="size-10 rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden" />
-                                        <span className='font-semibold'>{r.user}</span>
+                                        <span className='font-semibold'>{r.user || "Anonymous"}</span>
                                     </div>
                                     <div className="flex items-center gap-2">
 

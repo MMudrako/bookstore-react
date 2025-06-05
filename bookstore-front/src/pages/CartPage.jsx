@@ -2,6 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import CartContext from '../hooks/cartContext';
 
+
+/* banner to encourage sign-up add once ui is adjusted for auth users
+{!user && (
+  <div className="bg-yellow-100 text-yellow-900 p-4 text-center">
+    Sign in to unlock special offers and save your cart for later!
+  </div>
+)}
+ */
 export default function CartPage() {
     const navigate = useNavigate();
     const { cartItems, updateQuantity, removeFromCart, cartTotal } = useContext(CartContext);

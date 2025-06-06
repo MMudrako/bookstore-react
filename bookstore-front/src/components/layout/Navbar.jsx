@@ -89,7 +89,7 @@ export default function MainNavbar() {
                         {/* Profile dropdown */}
                         <Menu as="div" className="relative ml-3">
                             <div>
-                                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                                <MenuButton className="relative flex rounded-full bg-dust text-sm focus:ring-2 focus:ring-parchment focus:ring-offset-2 focus:ring-offset-dullgreen focus:outline-hidden">
                                     <span className="absolute -inset-1.5" />
                                     <span className="sr-only">Open user menu</span>
                                     <img
@@ -99,52 +99,61 @@ export default function MainNavbar() {
                                     />
                                 </MenuButton>
                             </div>
+
                             <MenuItems
-                                transition
-                                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                                className="absolute right-0 z-20 mt-2 w-48 origin-top-right rounded-md bg-parchment shadow-lg ring-1 ring-black/5 focus:outline-none"
                             >
-                                <MenuItem as='div'>
+                                <div className="py-1">
+                                    <MenuItem as="div" disabled>
+                                        <div className="px-4 py-2 text-sm text-center text-gray-600">
+                                            {isLoading
+                                                ? "Loading..."
+                                                : user
+                                                    ? `Logged in as ${user.email}`
+                                                    : "Not signed in"}
+                                        </div>
+                                    </MenuItem>
 
-                                    {isLoading ? <p>loading...</p> : (
-                                        <>
-                                            {user && (
-                                                <p>Logged in as {user.email} </p>
-                                            )}
-                                        </>
-                                    )}
+                                    <MenuItem>
 
-                                </MenuItem>
-                                <MenuItem>
-                                    <button
-                                        className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                    >
-                                        Your Profile
-                                    </button>
-                                </MenuItem>
-                                <MenuItem>
-                                    <button
-                                        className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                    >
-                                        Settings
-                                    </button>
-                                </MenuItem>
-                                <MenuItem >
-                                    {user
-                                        ? <button
-                                            className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                            onClick={() => signOut(getAuth())}
+                                        <button
+                                            className="block w-full text-center px-4 py-2 text-sm hover:bg-dust hover:text-gray-900 focus:bg-dust focus:text-gray-900"
+
                                         >
-                                            Sign out
+                                            Your Profile
                                         </button>
-                                        : <button
-                                            className="block px-4 py-2 w-48 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                                            onClick={() => navigate('/login')}
-                                        >
-                                            Sign in
-                                        </button>}
 
-                                </MenuItem>
+                                    </MenuItem>
+
+                                    <MenuItem>
+                                        <button
+                                            className="block w-full text-center px-4 py-2 text-sm hover:bg-dust hover:text-gray-900 focus:bg-dust focus:text-gray-900"
+
+                                        >
+                                            Settings
+                                        </button>
+
+                                    </MenuItem>
+
+                                    <MenuItem >
+                                        {user
+                                            ? <button
+                                                className="block w-full text-center px-4 py-2 text-sm hover:bg-dust hover:text-gray-900 focus:bg-dust focus:text-gray-900"
+                                                onClick={() => signOut(getAuth())}
+                                            >
+                                                Sign out
+                                            </button>
+                                            : <button
+                                                className="block w-full text-center px-4 py-2 text-sm hover:bg-dust hover:text-gray-900 focus:bg-dust focus:text-gray-900"
+                                                onClick={() => navigate('/login')}
+                                            >
+                                                Sign in
+                                            </button>}
+                                    </MenuItem>
+                                </div>
                             </MenuItems>
+
+
                         </Menu>
                     </div>
                 </div>

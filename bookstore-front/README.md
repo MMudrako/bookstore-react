@@ -1,7 +1,7 @@
 # 📚 bookstore-front
 
-Frontend for the Bookstore React App – a complete rebuild of a college MEAN project using **React**, **Vite**, and **Tailwind CSS** (JavaScript version).  
-This is the frontend portion of a full-stack monorepo located in [`/bookstore-react`](../).
+Frontend for the Bookstore React App – a complete rebuild of a college MEAN project using **React**, **Vite**, and **Tailwind CSS**.  
+This is the frontend portion of the full-stack monorepo [`/bookstore-react`](../).
 
 ---
 
@@ -9,9 +9,18 @@ This is the frontend portion of a full-stack monorepo located in [`/bookstore-re
 
 - **React** (JavaScript)
 - **Vite** for fast builds and local dev
-- **Tailwind CSS** for modern, utility-first styling
+- **Tailwind CSS** for utility-first styling
 - **React Router** for client-side routing (coming soon)
 - **Custom hooks** and `fetch()`-based services for API calls
+
+---
+
+## 📌 Frontend Goals
+
+* Modular React components converted from legacy EJS
+* Tailwind-powered layout and styling
+* Planned support for auth, cart syncing, and dynamic routing
+* Development tools: ESLint, Prettier, EditorConfig
 
 ---
 
@@ -31,39 +40,16 @@ npm run dev
 
 ---
 
-## 🔍 Folder Structure (coming soon)
+## 🔮 Coming Next
+
+* Database-backed cart per user
+* Admin dashboard
+* Review system
+* Animations and accessibility polishing
 
 ---
-
-## 🚧 Current Status
-
-Phase 1 in progress: setup, layout, and Tailwind styling
-
-Phase 2 upcoming: backend routes and MongoDB integration
-(Full progress tracked in Checklist)
-
----
-
-## 📌 Frontend Goals
-
-Convert old EJS views into modular React components
-
-Use Tailwind for styling and responsive layout
-
-Consume backend API once built
-
-Build a clean, accessible user interface
-
----
-
-## 🧪 Notes
-
-ESLint, Prettier, and EditorConfig are all set up
-
-Default formatting rules included for consistency
-
-## Future: auth forms, animations, search/pagination
 
 ## 📄 License
 
-MIT (See the main LICENSE file in the monorepo root.)
+MIT (See main LICENSE file in the monorepo root)
+

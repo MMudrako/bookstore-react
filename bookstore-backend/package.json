@@ -1,16 +1,17 @@
 {
   "name": "bookstore-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Full-stack bookstore app with Express and Vite frontend",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "build": "cd ../bookstore-front && npm install && npm run build",
+    "postinstall": "npm run build"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Maria Mudrakova",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^5.1.0",

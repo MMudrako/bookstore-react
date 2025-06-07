@@ -46,7 +46,7 @@ npm run dev
 * Admin dashboard
 * Review system
 * Animations and accessibility polishing
-
+* React.lazy() for large components
 ---
 
 ## 📄 License

@@ -2,6 +2,21 @@ import express from 'express';
 import { connectToDB } from '../db.js';
 import admin from 'firebase-admin';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// In order to work with ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+
+app.use(express.json());
+
+const { db } = await connectToDB();
+
+// Serve static files from the frontend dist directory
+app.use(express.static(path.join(__dirname, '../../bookstore-front/dist')));
 
 const credentials = JSON.parse(
     fs.readFileSync('./fbCredentials.json')
@@ -11,16 +26,12 @@ admin.initializeApp({
     credential: admin.credential.cert(credentials)
 });
 
-const app = express();
-
-app.use(express.json());
-
-const { db } = await connectToDB();
 
 
-//first endpoints testing
-app.get('/hello', function (req, res) {
-    res.send('Hello!')
+
+// For React Router (SPA): redirect all unmatched routes to index.html
+app.get(/^(?!\/api).+/, (req, res) => {
+    res.sendFile(path.join(__dirname, '../../bookstore-front/dist/index.html'));
 });
 
 app.get('/api/books', async (req, res) => {
@@ -79,15 +90,26 @@ app.post('/api/users/create', async (req, res) => {
         return res.status(400).json({ message: 'Username is required and must be a string.' });
     }
 
-    const existingUser = await db.collection('users').findOne({ uid });
-    if (existingUser) {
-        return res.status(200).json({ message: 'User already exists' });
+    const potentialConflicts = await db.collection('users').find({
+        $or: [
+            { uid },
+            { userName },
+            { email }
+        ]
+    }).toArray();
+
+    for (const user of potentialConflicts) {
+        if (user.uid === uid) {
+            return res.status(200).json({ message: 'User already exists' });
+        }
+        if (user.userName === userName) {
+            return res.status(400).json({ message: 'Username already taken' });
+        }
+        if (user.email === email) {
+            return res.status(400).json({ message: 'An account with this email already exists' });
+        }
     }
 
-    const duplicateUsername = await db.collection('users').findOne({ userName });
-    if (duplicateUsername) {
-        return res.status(400).json({ message: 'Username already taken' });
-    }
 
     const newUser = {
         uid,
@@ -159,7 +181,9 @@ app.post('/api/books/:id/reviews', async (req, res) => {
 
 
 });
+//start the server
 
-app.listen(8000, function () {
-    console.log('server is listening on port 8000')
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, function () {
+    console.log(`server is listening at http://localhost:${PORT}`)
 });

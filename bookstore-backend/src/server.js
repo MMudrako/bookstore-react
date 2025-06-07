@@ -18,9 +18,7 @@ const { db } = await connectToDB();
 // Serve static files from the frontend dist directory
 app.use(express.static(path.join(__dirname, '../../bookstore-front/dist')));
 
-const credentials = JSON.parse(
-    fs.readFileSync('./fbCredentials.json')
-)
+const credentials = JSON.parse(process.env.FIREBASE_ADMIN_CREDENTIALS);
 
 admin.initializeApp({
     credential: admin.credential.cert(credentials)
